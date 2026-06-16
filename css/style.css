@@ -1,0 +1,36 @@
+h1 {
+    color: #9BD770;
+}
+
+h2 {
+    color: #7BC043;
+}
+
+h3 {
+    color: #3AA677;
+}
+
+h4 {
+    color: #2D936C;
+}
+
+h5 {
+    color: #2D936C;
+}
+
+h6 {
+    color: #2D936C;
+}
+
+.md-nav__link {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* .md-nav__link:hover {
+    overflow: visible;
+    white-space: normal;
+    height: auto;
+} */

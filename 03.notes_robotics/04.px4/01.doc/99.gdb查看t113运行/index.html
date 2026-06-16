@@ -1,0 +1,5382 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mydomain.org/mysite/03.notes_robotics/04.px4/01.doc/99.gdb%E6%9F%A5%E7%9C%8Bt113%E8%BF%90%E8%A1%8C/">
+      
+      
+        <link rel="prev" href="../99.px4_main%20%E5%A4%96%E9%83%A8cmake%E8%B0%83%E7%94%A8/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>gdb查看t113运行 - Tong Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto Mono";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../../css/style.css">
+    
+      <link rel="stylesheet" href="../../../../assets/mkdocs_puml/puml.css">
+    
+      <link rel="stylesheet" href="../../../../assets/mkdocs_puml/interaction.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gdbt113" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Tong Docs" class="md-header__button md-logo" aria-label="Tong Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tong Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              gdb查看t113运行
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Tong Docs" class="md-nav__button md-logo" aria-label="Tong Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Tong Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    notes_common
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    notes_common
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    markdown
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    markdown
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/01.markdown/00.markdown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    markdown
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/01.markdown/01.mermaid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mermaid
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/01.markdown/02.plantuml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    plantuml
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/01.markdown/99.hpp2plantuml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    hpp2plantuml
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/01.markdown/99.mindmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mindmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mkdocs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    mkdocs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/02.mkdocs/00.readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    math
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    math
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/03.math/00.readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/03.math/01.%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性空间
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/03.math/02.%E7%9F%A9%E9%98%B5%E5%92%8C%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵和线性方程组
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    others
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    others
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/99.others/00.readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/99.others/01.%E8%BF%81%E7%A7%BBwindows%E7%B3%BB%E7%BB%9F%E5%88%B0%E6%96%B0%E7%A1%AC%E7%9B%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    迁移windows系统到新硬盘
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/99.others/99.vmware%E7%BD%91%E5%8D%A1%E6%9C%AA%E8%BF%9E%E6%8E%A5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    vmware网卡未连接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/99.others/99.%E5%BD%B1%E8%A7%86%E4%BB%93/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    影视仓
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/99.others/99.%E6%A3%80%E6%9F%A5windows11%E7%B3%BB%E7%BB%9F%E5%AE%8C%E6%95%B4%E6%80%A7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    检查windows11系统完整性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../01.notes_common/99.others/99.license%E9%99%90%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    license限制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    notes_devops_infra
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    notes_devops_infra
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    version_control
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    version_control
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/01.version_control/00.git%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    git使用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/01.version_control/01.git_submodule%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    git_submodule使用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/01.version_control/02.git_rebase%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    git_rebase使用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/01.version_control/10.svn%E6%8C%87%E4%BB%A4%E9%80%9F%E6%9F%A5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    svn指令速查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ai_tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ai_tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/02.ai_tools/00.ollama%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ollama安装使用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/02.ai_tools/01.cline%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cline安装使用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/02.ai_tools/02.openclaw%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openclaw安装使用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/02.ai_tools/03.opencode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    opencode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/02.ai_tools/04.superpowers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    superpowers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/02.ai_tools/05.zeroclaw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    zeroclaw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/02.ai_tools/06.claudecode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    claudecode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    docker
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    docker
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/03.docker/01.docker%E4%BD%BF%E7%94%A8%E9%80%9F%E6%9F%A5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    docker使用速查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/03.docker/02.Dockerfile%E6%9E%84%E5%BB%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dockerfile构建
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/03.docker/04.docker%E5%A4%9A%E6%9E%B6%E6%9E%84%E6%94%AF%E6%8C%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    docker多架构支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/03.docker/05.docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    docker-compose
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/03.docker/99.1panel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1panel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ssh
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ssh
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/04.ssh/01.ssh%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ssh使用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/04.ssh/02.Mobaxterm%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobaxterm端口映射
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    linux_tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    linux_tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/01.top%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    top使用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/02.screen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    screen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/03.ps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/04.pstree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pstree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/05.tmux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    tmux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/06.systemd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    systemd
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/07.can/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    can
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/08.tcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    tcp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/09.channel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    channel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/10.linux%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA%28apache2%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    linux网站搭建(apache2)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/11.vusart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    vusart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/12.perf_install_docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    perf_install_docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/99.%E9%9F%B3%E9%A2%91%E6%92%AD%E6%94%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    音频播放
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/99.linux%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85%E5%8C%85/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    linux离线安装包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/99.cpu%E9%9A%94%E7%A6%BB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cpu隔离
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/99.cgroups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cgroups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/99.others/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    others
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/99.set_swap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    set_swap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/99.samba/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    samba
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/99.%E9%94%81%E5%AE%9Acpu%E9%A2%91%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    锁定cpu频率
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/99.%E5%AE%9E%E6%97%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    实时系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/99.tcpdump%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    tcpdump使用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/05.linux_tools/99.gpio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gpio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/06.windows/00.Vimium_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vimium_C
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/06.windows/01.wsl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    wsl
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    vcpkg
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    vcpkg
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/07.vcpkg/00.readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    android
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    android
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/08.android/01.termux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    termux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/08.android/02.code_server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    code_server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/08.android/03.udocker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    udocker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gcc
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    gcc
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../02.notes_devops_infra/09.gcc/99.arm64-feature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    arm64-feature
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    notes_robotics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    notes_robotics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    robot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    robot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_1" id="__nav_3_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sensors
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    sensors
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/01.sensors/00.README/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    README
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/01.sensors/01.lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    lidar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_2" id="__nav_3_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    algorithms
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    algorithms
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/00.README/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    README
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_2_2" id="__nav_3_1_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kinematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_1_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    kinematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/01.kinematics/00.README/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    README
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_2_2_2" id="__nav_3_1_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    differential
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_1_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    differential
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/01.kinematics/01.differential/01.theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    theory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/01.kinematics/01.differential/02.simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    差速驱动运动学仿真
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_2_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_2_2_3" id="__nav_3_1_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ackermann
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_1_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ackermann
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/01.kinematics/02.ackermann/01.theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    theory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/01.kinematics/03.pose_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pose_integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/01.kinematics/04.velocity_to_pose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    velocity_to_pose
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_2_3" id="__nav_3_1_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    control
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_1_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    control
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/02.control/00.README/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    README
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/02.control/01.pure_pursuit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pure_pursuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/02.control/02.pure_pursuit_sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pure Pursuit Simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/02.control/03.mpc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mpc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_2_4" id="__nav_3_1_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    filtering
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_1_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    filtering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/03.filtering/01.basic_filters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    basic_filters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/03.filtering/01.basic_filters_sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础滤波算法模拟
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/03.filtering/02.kalman_filter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kalman_filter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/03.filtering/03.particle_filter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    particle_filter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_2_5" id="__nav_3_1_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    others
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_1_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    others
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_2_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_2_5_1" id="__nav_3_1_2_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    carlib_odom
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_1_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    carlib_odom
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01.robot/02.algorithms/04.others/02.carlib_odom/01.carlib_odom_test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    carbib_odom test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ros
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ros
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02.ros/00.README/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    README
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_2" id="__nav_3_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础入门
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础入门
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02.ros/01.%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/01.ros2%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ros2安装与基本使用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_3" id="__nav_3_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概念详解
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    概念详解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02.ros/02.%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3/01.ros2%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ros2整体架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02.ros/02.%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3/02.ros2%E6%89%A7%E8%A1%8C%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ros2执行器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02.ros/02.%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3/03.lifecycle%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    lifecycle概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_4" id="__nav_3_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工具使用
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具使用
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02.ros/03.%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/01.rosbag%E8%BD%AC%E6%8D%A2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    rosbag转换
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_5" id="__nav_3_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仿真
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    仿真
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02.ros/04.%E4%BB%BF%E7%9C%9F/01.TurtleBot3%E4%BB%BF%E7%9C%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TurtleBot3仿真
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    apollo
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    apollo
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03.apollo/00.README/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    README
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03.apollo/01.cyber_scheduler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cyber_scheduler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03.apollo/02.timer_component/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    timer_component
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    px4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    px4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00.readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    readme
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    doc
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    doc
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00.px4%E4%BB%BF%E7%9C%9F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E8%BF%90%E8%A1%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    px4仿真环境搭建运行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01.px4_sitl%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%9D%97%E7%9B%91%E6%8E%A7%28work_queue%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    px4_sitl运行模块监控(work_queue)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02.px4%E7%BB%84%E4%BB%B6%E5%8C%96%E6%9C%BA%E5%88%B6%28module%29%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    px4组件化机制(module)分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03.px4%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    px4启动流程分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04.px4%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97%E6%9C%BA%E5%88%B6%28workqueue%29%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    px4任务队列机制(workqueue)分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.px4%E6%B6%88%E6%81%AF%E9%80%9A%E4%BF%A1%E6%9C%BA%E5%88%B6%28uORB%29%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    px4消息通信机制(uORB)分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../99.px4%20remote%20pxh%20%E4%BD%BF%E7%94%A8fifo%28named%20pipe%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    px4 remote pxh 使用fifo(named pipe)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../99.px4_main%20%E5%A4%96%E9%83%A8cmake%E8%B0%83%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    px4_main 外部cmake调用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gdb查看t113运行
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gdb查看t113运行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gdb 堆栈打印
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#urgb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        urgb
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gdb 堆栈打印
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#urgb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        urgb
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="gdbt113">gdb查看t113运行<a class="headerlink" href="#gdbt113" title="Permanent link">#</a></h1>
+<h2 id="gdb">gdb 堆栈打印<a class="headerlink" href="#gdb" title="Permanent link">#</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Using<span class="w"> </span>host<span class="w"> </span>libthread_db<span class="w"> </span>library<span class="w"> </span><span class="s2">&quot;/lib/x86_64-linux-gnu/libthread_db.so.1&quot;</span>.
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>__GI___libc_read<span class="w"> </span><span class="o">(</span><span class="nv">nbytes</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">buf</span><span class="o">=</span>0x7fa57ecdcb23<span class="w"> </span>&lt;_IO_2_1_stdin_+131&gt;,<span class="w"> </span><span class="nv">fd</span><span class="o">=</span><span class="m">0</span><span class="o">)</span><span class="w"> </span>at<span class="w"> </span>../sysdeps/unix/sysv/linux/read.c:26
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="m">26</span><span class="w">      </span>../sysdeps/unix/sysv/linux/read.c:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory.
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>thread<span class="w"> </span>apply<span class="w"> </span>all<span class="w"> </span>bt
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Thread<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57aa01a40<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10276</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;mavlink_rcv_if0&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">#0  0x00007fa57ebdabcf in __GI___poll (fds=fds@entry=0x7fa57a9ff078, nfds=nfds@entry=1, timeout=timeout@entry=10) at ../sysdeps/unix/sysv/linux/poll.c:29</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1">#1  0x00005595cc04259b in poll (__timeout=10, __nfds=1, __fds=0x7fa57a9ff078) at /usr/include/x86_64-linux-gnu/bits/poll2.h:39</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1">#2  MavlinkReceiver::run (this=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/src/modules/mavlink/mavlink_receiver.cpp:3120</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1">#3  0x00005595cc043d6d in MavlinkReceiver::start_trampoline (context=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/src/modules/mavlink/mavlink_receiver.cpp:3484</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1">#4  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1">#5  0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Thread<span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57aa18380<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10274</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;mavlink_if0&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="c1">#0  0x00007fa57eba77f8 in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, req=req@entry=0x7fa57aa178d0, rem=rem@entry=0x0) at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="c1">#1  0x00007fa57ebac677 in __GI___nanosleep (req=req@entry=0x7fa57aa178d0, rem=rem@entry=0x0) at ../sysdeps/unix/sysv/linux/nanosleep.c:25</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="c1">#2  0x00007fa57ebddf2f in usleep (useconds=&lt;optimized out&gt;) at ../sysdeps/posix/usleep.c:31</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="c1">#3  0x00005595cc0170bc in Mavlink::task_main (this=0x7fa54c000b70, argc=&lt;optimized out&gt;, argv=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/src/modules/mavlink/mavlink_main.cpp:2207</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="c1">#4  0x00005595cc01aacb in Mavlink::start_helper (argc=11, argv=0x7fa558009770) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/src/modules/mavlink/mavlink_main.cpp:2709</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="c1">#5  0x00005595cc125a2d in entry_adapter (ptr=0x7fa558009750) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/tasks.cpp:98</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="c1">#6  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="c1">#7  0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>Thread<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57aa27640<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10268</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;commander&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="c1">#0  0x00007fa57eba77f8 in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, req=req@entry=0x7fa57aa26d40, rem=rem@entry=0x0) at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="c1">#1  0x00007fa57ebac677 in __GI___nanosleep (req=req@entry=0x7fa57aa26d40, rem=rem@entry=0x0) at ../sysdeps/unix/sysv/linux/nanosleep.c:25</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="c1">#2  0x00007fa57ebddf2f in usleep (useconds=&lt;optimized out&gt;) at ../sysdeps/posix/usleep.c:31</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="c1">#3  0x00005595cbf774b3 in Commander::run (this=0x7fa548000b70) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/src/modules/commander/Commander.cpp:1841</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="c1">#4  0x00005595cbf7adbd in ModuleBase&lt;Commander&gt;::run_trampoline (argc=&lt;optimized out&gt;, argv=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/include/px4_platform_common/module.h:180</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="c1">#5  0x00005595cc125a2d in entry_adapter (ptr=0x7fa558008e00) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/tasks.cpp:98</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="c1">#6  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="c1">#7  0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>Thread<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57aa3c4c0<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10135</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;navigator&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="c1">#0  __futex_abstimed_wait_common64 (private=0, cancel=true, abstime=0x7fa57aa3b9a0, op=137, expected=0, futex_word=0x7fa57aa3ba00) at ./nptl/futex-internal.c:57</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="c1">#1  __futex_abstimed_wait_common (cancel=true, private=0, abstime=0x7fa57aa3b9a0, clockid=0, expected=0, futex_word=0x7fa57aa3ba00) at ./nptl/futex-internal.c:87</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="c1">#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x7fa57aa3ba00, expected=expected@entry=0, clockid=clockid@entry=1, abstime=abstime@entry=0x7fa57aa3b9a0, private=private@entry=0) at ./nptl/futex-internal.c:139</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="c1">#3  0x00007fa57eb55e9b in __pthread_cond_wait_common (abstime=0x7fa57aa3b9a0, clockid=1, mutex=0x7fa57aa3b9b0, cond=0x7fa57aa3b9d8) at ./nptl/pthread_cond_wait.c:503</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="c1">#4  ___pthread_cond_timedwait64 (cond=0x7fa57aa3b9d8, mutex=0x7fa57aa3b9b0, abstime=0x7fa57aa3b9a0) at ./nptl/pthread_cond_wait.c:652</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="c1">#5  0x00005595cc125f57 in px4_sem_timedwait (s=0x7fa57aa3b9b0, abstime=0x7fa57aa3b9a0) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/px4_sem.cpp:137</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="c1">#6  0x00005595cc11d4bb in px4_poll (fds=0x7fa57aa3bb70, nfds=&lt;optimized out&gt;, timeout=1000) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/src/lib/cdev/posix/cdev_platform.cpp:405</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="c1">#7  0x00005595cc06d99e in Navigator::run (this=0x7fa554000b70) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/src/modules/navigator/navigator_main.cpp:177</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="c1">#8  0x00005595cc06d20e in ModuleBase&lt;Navigator&gt;::run_trampoline (argc=&lt;optimized out&gt;, argv=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/include/px4_platform_common/module.h:180</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="c1">#9  0x00005595cc125a2d in entry_adapter (ptr=0x7fa558004f30) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/tasks.cpp:98</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="c1">#10 0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="c1">#11 0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>Thread<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57aa45640<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10132</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;wq:rate_ctrl&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="c1">#0  __futex_abstimed_wait_common64 (private=0, cancel=true, abstime=0x0, op=393, expected=0, futex_word=0x7fa57aa44d58) at ./nptl/futex-internal.c:57</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="c1">#1  __futex_abstimed_wait_common (cancel=true, private=0, abstime=0x0, clockid=0, expected=0, futex_word=0x7fa57aa44d58) at ./nptl/futex-internal.c:87</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="c1">#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x7fa57aa44d58, expected=expected@entry=0, clockid=clockid@entry=0, abstime=abstime@entry=0x0, private=private@entry=0) at ./nptl/futex-internal.c:139</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="c1">#3  0x00007fa57eb55a41 in __pthread_cond_wait_common (abstime=0x0, clockid=0, mutex=0x7fa57aa44d08, cond=0x7fa57aa44d30) at ./nptl/pthread_cond_wait.c:503</span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="c1">#4  ___pthread_cond_wait (cond=0x7fa57aa44d30, mutex=0x7fa57aa44d08) at ./nptl/pthread_cond_wait.c:627</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="c1">#5  0x00005595cc125e3c in px4_sem_wait (s=0x7fa57aa44d08) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/px4_sem.cpp:89</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="c1">#6  0x00005595cc1277f8 in px4::WorkQueue::Run (this=this@entry=0x7fa57aa44c90) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/px4_work_queue/WorkQueue.cpp:178</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="c1">#7  0x00005595cc127e4e in px4::WorkQueueRunner (context=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/px4_work_queue/WorkQueueManager.cpp:237</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="c1">#8  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="c1">#9  0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>Thread<span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57aa4e640<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10131</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;wq:manager&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="c1">#0  __futex_abstimed_wait_common64 (private=0, cancel=true, abstime=0x0, op=393, expected=0, futex_word=0x7fa57aa4dd58) at ./nptl/futex-internal.c:57</span>
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="c1">#1  __futex_abstimed_wait_common (cancel=true, private=0, abstime=0x0, clockid=0, expected=0, futex_word=0x7fa57aa4dd58) at ./nptl/futex-internal.c:87</span>
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a><span class="c1">#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x7fa57aa4dd58, expected=expected@entry=0, clockid=clockid@entry=0, abstime=abstime@entry=0x0, private=private@entry=0) at ./nptl/futex-internal.c:139</span>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a><span class="c1">#3  0x00007fa57eb55a41 in __pthread_cond_wait_common (abstime=0x0, clockid=0, mutex=0x7fa57aa4dd08, cond=0x7fa57aa4dd30) at ./nptl/pthread_cond_wait.c:503</span>
+</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a><span class="c1">#4  ___pthread_cond_wait (cond=0x7fa57aa4dd30, mutex=0x7fa57aa4dd08) at ./nptl/pthread_cond_wait.c:627</span>
+</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a><span class="c1">#5  0x00005595cc125e3c in px4_sem_wait (s=0x7fa57aa4dd08) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/px4_sem.cpp:89</span>
+</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a><span class="c1">#6  0x00005595cc1277f8 in px4::WorkQueue::Run (this=this@entry=0x7fa57aa4dc90) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/px4_work_queue/WorkQueue.cpp:178</span>
+</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a><span class="c1">#7  0x00005595cc127e4e in px4::WorkQueueRunner (context=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/px4_work_queue/WorkQueueManager.cpp:237</span>
+</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a><span class="c1">#8  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="c1">#9  0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a>
+</span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a>
+</span><span id="__span-0-73"><a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a>Thread<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57aa56640<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10126</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;wq:hp_default&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-74"><a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a><span class="c1">#0  __futex_abstimed_wait_common64 (private=0, cancel=true, abstime=0x0, op=393, expected=0, futex_word=0x7fa57aa55d58) at ./nptl/futex-internal.c:57</span>
+</span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a><span class="c1">#1  __futex_abstimed_wait_common (cancel=true, private=0, abstime=0x0, clockid=0, expected=0, futex_word=0x7fa57aa55d58) at ./nptl/futex-internal.c:87</span>
+</span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a><span class="c1">#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x7fa57aa55d58, expected=expected@entry=0, clockid=clockid@entry=0, abstime=abstime@entry=0x0, private=private@entry=0) at ./nptl/futex-internal.c:139</span>
+</span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a><span class="c1">#3  0x00007fa57eb55a41 in __pthread_cond_wait_common (abstime=0x0, clockid=0, mutex=0x7fa57aa55d08, cond=0x7fa57aa55d30) at ./nptl/pthread_cond_wait.c:503</span>
+</span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a><span class="c1">#4  ___pthread_cond_wait (cond=0x7fa57aa55d30, mutex=0x7fa57aa55d08) at ./nptl/pthread_cond_wait.c:627</span>
+</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a><span class="c1">#5  0x00005595cc125e3c in px4_sem_wait (s=0x7fa57aa55d08) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/px4_sem.cpp:89</span>
+</span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a><span class="c1">#6  0x00005595cc1277f8 in px4::WorkQueue::Run (this=this@entry=0x7fa57aa55c90) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/px4_work_queue/WorkQueue.cpp:178</span>
+</span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a><span class="c1">#7  0x00005595cc127e4e in px4::WorkQueueRunner (context=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/px4_work_queue/WorkQueueManager.cpp:237</span>
+</span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82" href="#__codelineno-0-82"></a><span class="c1">#8  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-83"><a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a><span class="c1">#9  0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-84"><a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a>
+</span><span id="__span-0-85"><a id="__codelineno-0-85" name="__codelineno-0-85" href="#__codelineno-0-85"></a>Thread<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57aa5e640<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10123</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;wq:ttyS5&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-86"><a id="__codelineno-0-86" name="__codelineno-0-86" href="#__codelineno-0-86"></a><span class="c1">#0  __futex_abstimed_wait_common64 (private=0, cancel=true, abstime=0x0, op=393, expected=0, futex_word=0x7fa57aa5dd5c) at ./nptl/futex-internal.c:57</span>
+</span><span id="__span-0-87"><a id="__codelineno-0-87" name="__codelineno-0-87" href="#__codelineno-0-87"></a><span class="c1">#1  __futex_abstimed_wait_common (cancel=true, private=0, abstime=0x0, clockid=0, expected=0, futex_word=0x7fa57aa5dd5c) at ./nptl/futex-internal.c:87</span>
+</span><span id="__span-0-88"><a id="__codelineno-0-88" name="__codelineno-0-88" href="#__codelineno-0-88"></a><span class="c1">#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x7fa57aa5dd5c, expected=expected@entry=0, clockid=clockid@entry=0, abstime=abstime@entry=0x0, private=private@entry=0) at ./nptl/futex-internal.c:139</span>
+</span><span id="__span-0-89"><a id="__codelineno-0-89" name="__codelineno-0-89" href="#__codelineno-0-89"></a><span class="c1">#3  0x00007fa57eb55a41 in __pthread_cond_wait_common (abstime=0x0, clockid=0, mutex=0x7fa57aa5dd08, cond=0x7fa57aa5dd30) at ./nptl/pthread_cond_wait.c:503</span>
+</span><span id="__span-0-90"><a id="__codelineno-0-90" name="__codelineno-0-90" href="#__codelineno-0-90"></a><span class="c1">#4  ___pthread_cond_wait (cond=0x7fa57aa5dd30, mutex=0x7fa57aa5dd08) at ./nptl/pthread_cond_wait.c:627</span>
+</span><span id="__span-0-91"><a id="__codelineno-0-91" name="__codelineno-0-91" href="#__codelineno-0-91"></a><span class="c1">#5  0x00005595cc125e3c in px4_sem_wait (s=0x7fa57aa5dd08) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/px4_sem.cpp:89</span>
+</span><span id="__span-0-92"><a id="__codelineno-0-92" name="__codelineno-0-92" href="#__codelineno-0-92"></a><span class="c1">#6  0x00005595cc1277f8 in px4::WorkQueue::Run (this=this@entry=0x7fa57aa5dc90) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/px4_work_queue/WorkQueue.cpp:178</span>
+</span><span id="__span-0-93"><a id="__codelineno-0-93" name="__codelineno-0-93" href="#__codelineno-0-93"></a><span class="c1">#7  0x00005595cc127e4e in px4::WorkQueueRunner (context=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/px4_work_queue/WorkQueueManager.cpp:237</span>
+</span><span id="__span-0-94"><a id="__codelineno-0-94" name="__codelineno-0-94" href="#__codelineno-0-94"></a><span class="c1">#8  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-95"><a id="__codelineno-0-95" name="__codelineno-0-95" href="#__codelineno-0-95"></a><span class="c1">#9  0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-96"><a id="__codelineno-0-96" name="__codelineno-0-96" href="#__codelineno-0-96"></a>
+</span><span id="__span-0-97"><a id="__codelineno-0-97" name="__codelineno-0-97" href="#__codelineno-0-97"></a>Thread<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57f025640<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10108</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;wq:lp_default&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-98"><a id="__codelineno-0-98" name="__codelineno-0-98" href="#__codelineno-0-98"></a><span class="c1">#0  __futex_abstimed_wait_common64 (private=0, cancel=true, abstime=0x0, op=393, expected=0, futex_word=0x7fa57f024d58) at ./nptl/futex-internal.c:57</span>
+</span><span id="__span-0-99"><a id="__codelineno-0-99" name="__codelineno-0-99" href="#__codelineno-0-99"></a><span class="c1">#1  __futex_abstimed_wait_common (cancel=true, private=0, abstime=0x0, clockid=0, expected=0, futex_word=0x7fa57f024d58) at ./nptl/futex-internal.c:87</span>
+</span><span id="__span-0-100"><a id="__codelineno-0-100" name="__codelineno-0-100" href="#__codelineno-0-100"></a><span class="c1">#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x7fa57f024d58, expected=expected@entry=0, clockid=clockid@entry=0, abstime=abstime@entry=0x0, private=private@entry=0) at ./nptl/futex-internal.c:139</span>
+</span><span id="__span-0-101"><a id="__codelineno-0-101" name="__codelineno-0-101" href="#__codelineno-0-101"></a><span class="c1">#3  0x00007fa57eb55a41 in __pthread_cond_wait_common (abstime=0x0, clockid=0, mutex=0x7fa57f024d08, cond=0x7fa57f024d30) at ./nptl/pthread_cond_wait.c:503</span>
+</span><span id="__span-0-102"><a id="__codelineno-0-102" name="__codelineno-0-102" href="#__codelineno-0-102"></a><span class="c1">#4  ___pthread_cond_wait (cond=0x7fa57f024d30, mutex=0x7fa57f024d08) at ./nptl/pthread_cond_wait.c:627</span>
+</span><span id="__span-0-103"><a id="__codelineno-0-103" name="__codelineno-0-103" href="#__codelineno-0-103"></a><span class="c1">#5  0x00005595cc125e3c in px4_sem_wait (s=0x7fa57f024d08) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/px4_sem.cpp:89</span>
+</span><span id="__span-0-104"><a id="__codelineno-0-104" name="__codelineno-0-104" href="#__codelineno-0-104"></a><span class="c1">#6  0x00005595cc1277f8 in px4::WorkQueue::Run (this=this@entry=0x7fa57f024c90) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/px4_work_queue/WorkQueue.cpp:178</span>
+</span><span id="__span-0-105"><a id="__codelineno-0-105" name="__codelineno-0-105" href="#__codelineno-0-105"></a><span class="c1">#7  0x00005595cc127e4e in px4::WorkQueueRunner (context=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/px4_work_queue/WorkQueueManager.cpp:237</span>
+</span><span id="__span-0-106"><a id="__codelineno-0-106" name="__codelineno-0-106" href="#__codelineno-0-106"></a><span class="c1">#8  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-107"><a id="__codelineno-0-107" name="__codelineno-0-107" href="#__codelineno-0-107"></a><span class="c1">#9  0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-108"><a id="__codelineno-0-108" name="__codelineno-0-108" href="#__codelineno-0-108"></a>
+</span><span id="__span-0-109"><a id="__codelineno-0-109" name="__codelineno-0-109" href="#__codelineno-0-109"></a>Thread<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57aa96ac0<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10105</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;dataman&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-110"><a id="__codelineno-0-110" name="__codelineno-0-110" href="#__codelineno-0-110"></a><span class="c1">#0  __futex_abstimed_wait_common64 (private=0, cancel=true, abstime=0x0, op=393, expected=0, futex_word=0x5595cc2a5494 &lt;g_work_queued_sema+84&gt;) at ./nptl/futex-internal.c:57</span>
+</span><span id="__span-0-111"><a id="__codelineno-0-111" name="__codelineno-0-111" href="#__codelineno-0-111"></a><span class="c1">#1  __futex_abstimed_wait_common (cancel=true, private=0, abstime=0x0, clockid=0, expected=0, futex_word=0x5595cc2a5494 &lt;g_work_queued_sema+84&gt;) at ./nptl/futex-internal.c:87</span>
+</span><span id="__span-0-112"><a id="__codelineno-0-112" name="__codelineno-0-112" href="#__codelineno-0-112"></a><span class="c1">#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x5595cc2a5494 &lt;g_work_queued_sema+84&gt;, expected=expected@entry=0, clockid=clockid@entry=0, abstime=abstime@entry=0x0, private=private@entry=0) at ./nptl/futex-internal.c:139</span>
+</span><span id="__span-0-113"><a id="__codelineno-0-113" name="__codelineno-0-113" href="#__codelineno-0-113"></a><span class="c1">#3  0x00007fa57eb55a41 in __pthread_cond_wait_common (abstime=0x0, clockid=0, mutex=0x5595cc2a5440 &lt;g_work_queued_sema&gt;, cond=0x5595cc2a5468 &lt;g_work_queued_sema+40&gt;) at ./nptl/pthread_cond_wait.c:503</span>
+</span><span id="__span-0-114"><a id="__codelineno-0-114" name="__codelineno-0-114" href="#__codelineno-0-114"></a><span class="c1">#4  ___pthread_cond_wait (cond=0x5595cc2a5468 &lt;g_work_queued_sema+40&gt;, mutex=0x5595cc2a5440 &lt;g_work_queued_sema&gt;) at ./nptl/pthread_cond_wait.c:627</span>
+</span><span id="__span-0-115"><a id="__codelineno-0-115" name="__codelineno-0-115" href="#__codelineno-0-115"></a><span class="c1">#5  0x00005595cc125e3c in px4_sem_wait (s=0x5595cc2a5440 &lt;g_work_queued_sema&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/px4_sem.cpp:89</span>
+</span><span id="__span-0-116"><a id="__codelineno-0-116" name="__codelineno-0-116" href="#__codelineno-0-116"></a><span class="c1">#6  0x00005595cbf8f99a in task_main (argc=&lt;optimized out&gt;, argv=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/src/modules/dataman/dataman.cpp:1029</span>
+</span><span id="__span-0-117"><a id="__codelineno-0-117" name="__codelineno-0-117" href="#__codelineno-0-117"></a><span class="c1">#7  task_main (argc=&lt;optimized out&gt;, argv=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/src/modules/dataman/dataman.cpp:941</span>
+</span><span id="__span-0-118"><a id="__codelineno-0-118" name="__codelineno-0-118" href="#__codelineno-0-118"></a><span class="c1">#8  0x00005595cc125a2d in entry_adapter (ptr=0x7fa570002550) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/tasks.cpp:98</span>
+</span><span id="__span-0-119"><a id="__codelineno-0-119" name="__codelineno-0-119" href="#__codelineno-0-119"></a><span class="c1">#9  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-120"><a id="__codelineno-0-120" name="__codelineno-0-120" href="#__codelineno-0-120"></a><span class="c1">#10 0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-121"><a id="__codelineno-0-121" name="__codelineno-0-121" href="#__codelineno-0-121"></a>
+</span><span id="__span-0-122"><a id="__codelineno-0-122" name="__codelineno-0-122" href="#__codelineno-0-122"></a>Thread<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57aaaba40<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10015</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;wq:manager&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-123"><a id="__codelineno-0-123" name="__codelineno-0-123" href="#__codelineno-0-123"></a><span class="c1">#0  __futex_abstimed_wait_common64 (private=0, cancel=true, abstime=0x0, op=393, expected=0, futex_word=0x7fa56c000c94) at ./nptl/futex-internal.c:57</span>
+</span><span id="__span-0-124"><a id="__codelineno-0-124" name="__codelineno-0-124" href="#__codelineno-0-124"></a><span class="c1">#1  __futex_abstimed_wait_common (cancel=true, private=0, abstime=0x0, clockid=0, expected=0, futex_word=0x7fa56c000c94) at ./nptl/futex-internal.c:87</span>
+</span><span id="__span-0-125"><a id="__codelineno-0-125" name="__codelineno-0-125" href="#__codelineno-0-125"></a><span class="c1">#2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x7fa56c000c94, expected=expected@entry=0, clockid=clockid@entry=0, abstime=abstime@entry=0x0, private=private@entry=0) at ./nptl/futex-internal.c:139</span>
+</span><span id="__span-0-126"><a id="__codelineno-0-126" name="__codelineno-0-126" href="#__codelineno-0-126"></a><span class="c1">#3  0x00007fa57eb55a41 in __pthread_cond_wait_common (abstime=0x0, clockid=0, mutex=0x7fa56c000c40, cond=0x7fa56c000c68) at ./nptl/pthread_cond_wait.c:503</span>
+</span><span id="__span-0-127"><a id="__codelineno-0-127" name="__codelineno-0-127" href="#__codelineno-0-127"></a><span class="c1">#4  ___pthread_cond_wait (cond=0x7fa56c000c68, mutex=0x7fa56c000c40) at ./nptl/pthread_cond_wait.c:627</span>
+</span><span id="__span-0-128"><a id="__codelineno-0-128" name="__codelineno-0-128" href="#__codelineno-0-128"></a><span class="c1">#5  0x00005595cc125e3c in px4_sem_wait (s=0x7fa56c000c40) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/px4_sem.cpp:89</span>
+</span><span id="__span-0-129"><a id="__codelineno-0-129" name="__codelineno-0-129" href="#__codelineno-0-129"></a><span class="c1">#6  0x00005595cc127ab0 in BlockingQueue&lt;px4::wq_config_t const*, 1ul&gt;::pop (this=0x7fa56c000be0) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/src/include/containers/BlockingQueue.hpp:67</span>
+</span><span id="__span-0-130"><a id="__codelineno-0-130" name="__codelineno-0-130" href="#__codelineno-0-130"></a><span class="c1">#7  px4::WorkQueueManagerRun () at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/px4_work_queue/WorkQueueManager.cpp:264</span>
+</span><span id="__span-0-131"><a id="__codelineno-0-131" name="__codelineno-0-131" href="#__codelineno-0-131"></a><span class="c1">#8  0x00005595cc125a2d in entry_adapter (ptr=0x5595cdd31c20) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/tasks.cpp:98</span>
+</span><span id="__span-0-132"><a id="__codelineno-0-132" name="__codelineno-0-132" href="#__codelineno-0-132"></a><span class="c1">#9  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-133"><a id="__codelineno-0-133" name="__codelineno-0-133" href="#__codelineno-0-133"></a><span class="c1">#10 0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-134"><a id="__codelineno-0-134" name="__codelineno-0-134" href="#__codelineno-0-134"></a>
+</span><span id="__span-0-135"><a id="__codelineno-0-135" name="__codelineno-0-135" href="#__codelineno-0-135"></a>Thread<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57aabb640<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10014</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;wkr_hrt&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-136"><a id="__codelineno-0-136" name="__codelineno-0-136" href="#__codelineno-0-136"></a><span class="c1">#0  0x00007fa57eba77f8 in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, req=req@entry=0x7fa57aabadd0, rem=rem@entry=0x0) at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78</span>
+</span><span id="__span-0-137"><a id="__codelineno-0-137" name="__codelineno-0-137" href="#__codelineno-0-137"></a><span class="c1">#1  0x00007fa57ebac677 in __GI___nanosleep (req=req@entry=0x7fa57aabadd0, rem=rem@entry=0x0) at ../sysdeps/unix/sysv/linux/nanosleep.c:25</span>
+</span><span id="__span-0-138"><a id="__codelineno-0-138" name="__codelineno-0-138" href="#__codelineno-0-138"></a>--Type<span class="w"> </span>&lt;RET&gt;<span class="w"> </span><span class="k">for</span><span class="w"> </span>more,<span class="w"> </span>q<span class="w"> </span>to<span class="w"> </span>quit,<span class="w"> </span>c<span class="w"> </span>to<span class="w"> </span><span class="k">continue</span><span class="w"> </span>without<span class="w"> </span>paging--
+</span><span id="__span-0-139"><a id="__codelineno-0-139" name="__codelineno-0-139" href="#__codelineno-0-139"></a><span class="c1">#2  0x00007fa57ebddf2f in usleep (useconds=useconds@entry=2282) at ../sysdeps/posix/usleep.c:31</span>
+</span><span id="__span-0-140"><a id="__codelineno-0-140" name="__codelineno-0-140" href="#__codelineno-0-140"></a><span class="c1">#3  0x00005595cc12d78e in hrt_work_process () at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/work_queue/hrt_thread.c:232</span>
+</span><span id="__span-0-141"><a id="__codelineno-0-141" name="__codelineno-0-141" href="#__codelineno-0-141"></a><span class="c1">#4  work_hrtthread (argc=&lt;optimized out&gt;, argv=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/work_queue/hrt_thread.c:276</span>
+</span><span id="__span-0-142"><a id="__codelineno-0-142" name="__codelineno-0-142" href="#__codelineno-0-142"></a><span class="c1">#5  0x00005595cc125a2d in entry_adapter (ptr=0x5595cdd31a00) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/tasks.cpp:98</span>
+</span><span id="__span-0-143"><a id="__codelineno-0-143" name="__codelineno-0-143" href="#__codelineno-0-143"></a><span class="c1">#6  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-144"><a id="__codelineno-0-144" name="__codelineno-0-144" href="#__codelineno-0-144"></a><span class="c1">#7  0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-145"><a id="__codelineno-0-145" name="__codelineno-0-145" href="#__codelineno-0-145"></a>
+</span><span id="__span-0-146"><a id="__codelineno-0-146" name="__codelineno-0-146" href="#__codelineno-0-146"></a>Thread<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57f034640<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10013</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;lpwork&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-147"><a id="__codelineno-0-147" name="__codelineno-0-147" href="#__codelineno-0-147"></a><span class="c1">#0  0x00007fa57eba77f8 in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, req=req@entry=0x7fa57f033e00, rem=rem@entry=0x0) at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78</span>
+</span><span id="__span-0-148"><a id="__codelineno-0-148" name="__codelineno-0-148" href="#__codelineno-0-148"></a><span class="c1">#1  0x00007fa57ebac677 in __GI___nanosleep (req=req@entry=0x7fa57f033e00, rem=rem@entry=0x0) at ../sysdeps/unix/sysv/linux/nanosleep.c:25</span>
+</span><span id="__span-0-149"><a id="__codelineno-0-149" name="__codelineno-0-149" href="#__codelineno-0-149"></a><span class="c1">#2  0x00007fa57ebddf2f in usleep (useconds=&lt;optimized out&gt;) at ../sysdeps/posix/usleep.c:31</span>
+</span><span id="__span-0-150"><a id="__codelineno-0-150" name="__codelineno-0-150" href="#__codelineno-0-150"></a><span class="c1">#3  0x00005595cc12dc52 in work_process (wqueue=wqueue@entry=0x5595cc2abcb8 &lt;g_work+24&gt;, lock_id=lock_id@entry=1) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/work_queue/work_thread.c:194</span>
+</span><span id="__span-0-151"><a id="__codelineno-0-151" name="__codelineno-0-151" href="#__codelineno-0-151"></a><span class="c1">#4  0x00005595cc12dcbd in work_lpthread (argc=&lt;optimized out&gt;, argv=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/work_queue/work_thread.c:305</span>
+</span><span id="__span-0-152"><a id="__codelineno-0-152" name="__codelineno-0-152" href="#__codelineno-0-152"></a><span class="c1">#5  0x00005595cc125a2d in entry_adapter (ptr=0x5595cdd31890) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/tasks.cpp:98</span>
+</span><span id="__span-0-153"><a id="__codelineno-0-153" name="__codelineno-0-153" href="#__codelineno-0-153"></a><span class="c1">#6  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-154"><a id="__codelineno-0-154" name="__codelineno-0-154" href="#__codelineno-0-154"></a><span class="c1">#7  0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-155"><a id="__codelineno-0-155" name="__codelineno-0-155" href="#__codelineno-0-155"></a>
+</span><span id="__span-0-156"><a id="__codelineno-0-156" name="__codelineno-0-156" href="#__codelineno-0-156"></a>Thread<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57f043640<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10012</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;hpwork&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-157"><a id="__codelineno-0-157" name="__codelineno-0-157" href="#__codelineno-0-157"></a><span class="c1">#0  0x00007fa57eba77f8 in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, req=req@entry=0x7fa57f042e00, rem=rem@entry=0x0) at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78</span>
+</span><span id="__span-0-158"><a id="__codelineno-0-158" name="__codelineno-0-158" href="#__codelineno-0-158"></a><span class="c1">#1  0x00007fa57ebac677 in __GI___nanosleep (req=req@entry=0x7fa57f042e00, rem=rem@entry=0x0) at ../sysdeps/unix/sysv/linux/nanosleep.c:25</span>
+</span><span id="__span-0-159"><a id="__codelineno-0-159" name="__codelineno-0-159" href="#__codelineno-0-159"></a><span class="c1">#2  0x00007fa57ebddf2f in usleep (useconds=&lt;optimized out&gt;) at ../sysdeps/posix/usleep.c:31</span>
+</span><span id="__span-0-160"><a id="__codelineno-0-160" name="__codelineno-0-160" href="#__codelineno-0-160"></a><span class="c1">#3  0x00005595cc12dc52 in work_process (wqueue=wqueue@entry=0x5595cc2abca0 &lt;g_work&gt;, lock_id=lock_id@entry=0) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/work_queue/work_thread.c:194</span>
+</span><span id="__span-0-161"><a id="__codelineno-0-161" name="__codelineno-0-161" href="#__codelineno-0-161"></a><span class="c1">#4  0x00005595cc12dc9a in work_hpthread (argc=&lt;optimized out&gt;, argv=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/common/work_queue/work_thread.c:279</span>
+</span><span id="__span-0-162"><a id="__codelineno-0-162" name="__codelineno-0-162" href="#__codelineno-0-162"></a><span class="c1">#5  0x00005595cc125a2d in entry_adapter (ptr=0x5595cdd31720) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/tasks.cpp:98</span>
+</span><span id="__span-0-163"><a id="__codelineno-0-163" name="__codelineno-0-163" href="#__codelineno-0-163"></a><span class="c1">#6  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-164"><a id="__codelineno-0-164" name="__codelineno-0-164" href="#__codelineno-0-164"></a><span class="c1">#7  0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-165"><a id="__codelineno-0-165" name="__codelineno-0-165" href="#__codelineno-0-165"></a>
+</span><span id="__span-0-166"><a id="__codelineno-0-166" name="__codelineno-0-166" href="#__codelineno-0-166"></a>Thread<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57eabc640<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10011</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;px4&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-167"><a id="__codelineno-0-167" name="__codelineno-0-167" href="#__codelineno-0-167"></a><span class="c1">#0  0x00007fa57ebdabcf in __GI___poll (fds=0x7fa574000ee0, nfds=1, timeout=-1) at ../sysdeps/unix/sysv/linux/poll.c:29</span>
+</span><span id="__span-0-168"><a id="__codelineno-0-168" name="__codelineno-0-168" href="#__codelineno-0-168"></a><span class="c1">#1  0x00005595cc12cd4e in poll (__timeout=-1, __nfds=1, __fds=&lt;optimized out&gt;) at /usr/include/x86_64-linux-gnu/bits/poll2.h:39</span>
+</span><span id="__span-0-169"><a id="__codelineno-0-169" name="__codelineno-0-169" href="#__codelineno-0-169"></a><span class="c1">#2  px4_daemon::Server::_server_main (this=0x7fffb5e9dbf0) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/px4_daemon/server.cpp:150</span>
+</span><span id="__span-0-170"><a id="__codelineno-0-170" name="__codelineno-0-170" href="#__codelineno-0-170"></a><span class="c1">#3  0x00005595cc12d30d in px4_daemon::Server::_server_main_trampoline (self=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/px4_daemon/server.cpp:120</span>
+</span><span id="__span-0-171"><a id="__codelineno-0-171" name="__codelineno-0-171" href="#__codelineno-0-171"></a><span class="c1">#4  0x00007fa57eb56ac3 in start_thread (arg=&lt;optimized out&gt;) at ./nptl/pthread_create.c:442</span>
+</span><span id="__span-0-172"><a id="__codelineno-0-172" name="__codelineno-0-172" href="#__codelineno-0-172"></a><span class="c1">#5  0x00007fa57ebe7a04 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:100</span>
+</span><span id="__span-0-173"><a id="__codelineno-0-173" name="__codelineno-0-173" href="#__codelineno-0-173"></a>
+</span><span id="__span-0-174"><a id="__codelineno-0-174" name="__codelineno-0-174" href="#__codelineno-0-174"></a>--Type<span class="w"> </span>&lt;RET&gt;<span class="w"> </span><span class="k">for</span><span class="w"> </span>more,<span class="w"> </span>q<span class="w"> </span>to<span class="w"> </span>quit,<span class="w"> </span>c<span class="w"> </span>to<span class="w"> </span><span class="k">continue</span><span class="w"> </span>without<span class="w"> </span>paging--
+</span><span id="__span-0-175"><a id="__codelineno-0-175" name="__codelineno-0-175" href="#__codelineno-0-175"></a>Thread<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Thread<span class="w"> </span>0x7fa57eabd740<span class="w"> </span><span class="o">(</span>LWP<span class="w"> </span><span class="m">10010</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;px4&quot;</span><span class="o">)</span>:
+</span><span id="__span-0-176"><a id="__codelineno-0-176" name="__codelineno-0-176" href="#__codelineno-0-176"></a><span class="c1">#0  __GI___libc_read (nbytes=1, buf=0x7fa57ecdcb23 &lt;_IO_2_1_stdin_+131&gt;, fd=0) at ../sysdeps/unix/sysv/linux/read.c:26</span>
+</span><span id="__span-0-177"><a id="__codelineno-0-177" name="__codelineno-0-177" href="#__codelineno-0-177"></a><span class="c1">#1  __GI___libc_read (fd=0, buf=0x7fa57ecdcb23 &lt;_IO_2_1_stdin_+131&gt;, nbytes=1) at ../sysdeps/unix/sysv/linux/read.c:24</span>
+</span><span id="__span-0-178"><a id="__codelineno-0-178" name="__codelineno-0-178" href="#__codelineno-0-178"></a><span class="c1">#2  0x00007fa57eb4ec36 in _IO_new_file_underflow (fp=0x7fa57ecdcaa0 &lt;_IO_2_1_stdin_&gt;) at ./libio/libioP.h:947</span>
+</span><span id="__span-0-179"><a id="__codelineno-0-179" name="__codelineno-0-179" href="#__codelineno-0-179"></a><span class="c1">#3  0x00007fa57eb4fd96 in __GI__IO_default_uflow (fp=0x7fa57ecdcaa0 &lt;_IO_2_1_stdin_&gt;) at ./libio/libioP.h:947</span>
+</span><span id="__span-0-180"><a id="__codelineno-0-180" name="__codelineno-0-180" href="#__codelineno-0-180"></a><span class="c1">#4  0x00007fa57eb49a98 in _IO_getc (fp=0x7fa57ecdcaa0 &lt;_IO_2_1_stdin_&gt;) at ./libio/getc.c:40</span>
+</span><span id="__span-0-181"><a id="__codelineno-0-181" name="__codelineno-0-181" href="#__codelineno-0-181"></a><span class="c1">#5  0x00005595cc12b357 in getchar () at /usr/include/x86_64-linux-gnu/bits/stdio.h:49</span>
+</span><span id="__span-0-182"><a id="__codelineno-0-182" name="__codelineno-0-182" href="#__codelineno-0-182"></a><span class="c1">#6  px4_daemon::Pxh::run_pxh (this=this@entry=0x7fffb5e9dc90) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/px4_daemon/pxh.cpp:312</span>
+</span><span id="__span-0-183"><a id="__codelineno-0-183" name="__codelineno-0-183" href="#__codelineno-0-183"></a>
+</span><span id="__span-0-184"><a id="__codelineno-0-184" name="__codelineno-0-184" href="#__codelineno-0-184"></a><span class="c1">#7  0x00005595cbf3f799 in main (argc=&lt;optimized out&gt;, argv=&lt;optimized out&gt;) at /opt/tong/ws/gomros2-device2/devicelayer/px4/PX4_Autopilot/3rd/px4/platforms/posix/src/px4/common/main.cpp:407</span>
+</span><span id="__span-0-185"><a id="__codelineno-0-185" name="__codelineno-0-185" href="#__codelineno-0-185"></a><span class="o">(</span>gdb<span class="o">)</span>
+</span><span id="__span-0-186"><a id="__codelineno-0-186" name="__codelineno-0-186" href="#__codelineno-0-186"></a><span class="o">(</span>gdb<span class="o">)</span>
+</span><span id="__span-0-187"><a id="__codelineno-0-187" name="__codelineno-0-187" href="#__codelineno-0-187"></a><span class="o">(</span>gdb<span class="o">)</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pxh&gt;<span class="w"> </span>work_queue<span class="w"> </span>status
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Work<span class="w"> </span>Queue:<span class="w"> </span><span class="m">5</span><span class="w">  </span>threads<span class="w">                          </span>RATE<span class="w">        </span>INTERVAL
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">|</span>__<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="w"> </span>wq:rate_ctrl
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">|</span><span class="w">   </span><span class="p">|</span>__<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="w"> </span>control_allocator<span class="w">                  </span><span class="m">7</span>.6<span class="w"> </span>Hz<span class="w">       </span><span class="m">131224</span><span class="w"> </span>us
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">|</span><span class="w">   </span><span class="p">|</span>__<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="w"> </span>mc_rate_control<span class="w">                    </span><span class="m">0</span>.0<span class="w"> </span>Hz<span class="w">            </span><span class="m">0</span><span class="w"> </span>us
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">|</span><span class="w">   </span><span class="se">\_</span>_<span class="w"> </span><span class="m">3</span><span class="o">)</span><span class="w"> </span>vehicle_angular_velocity<span class="w">          </span><span class="m">38</span>.0<span class="w"> </span>Hz<span class="w">        </span><span class="m">26319</span><span class="w"> </span>us
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">|</span>__<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="w"> </span>wq:nav_and_controllers
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">|</span><span class="w">   </span><span class="p">|</span>__<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="w"> </span>ekf2_selector<span class="w">                      </span><span class="m">0</span>.0<span class="w"> </span>Hz<span class="w">            </span><span class="m">0</span><span class="w"> </span>us
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">|</span><span class="w">   </span><span class="p">|</span>__<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="w"> </span>flight_mode_manager<span class="w">                </span><span class="m">0</span>.0<span class="w"> </span>Hz<span class="w">            </span><span class="m">0</span><span class="w"> </span>us
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">|</span><span class="w">   </span><span class="p">|</span>__<span class="w"> </span><span class="m">3</span><span class="o">)</span><span class="w"> </span>land_detector<span class="w">                      </span><span class="m">7</span>.6<span class="w"> </span>Hz<span class="w">       </span><span class="m">131221</span><span class="w"> </span>us
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">|</span><span class="w">   </span><span class="p">|</span>__<span class="w"> </span><span class="m">4</span><span class="o">)</span><span class="w"> </span>mc_att_control<span class="w">                     </span><span class="m">0</span>.0<span class="w"> </span>Hz<span class="w">            </span><span class="m">0</span><span class="w"> </span>us
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">|</span><span class="w">   </span><span class="p">|</span>__<span class="w"> </span><span class="m">5</span><span class="o">)</span><span class="w"> </span>mc_hover_thrust_estimator<span class="w">          </span><span class="m">0</span>.0<span class="w"> </span>Hz<span class="w">            </span><span class="m">0</span><span class="w"> </span>us
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">|</span><span class="w">   </span><span class="p">|</span>__<span class="w"> </span><span class="m">6</span><span class="o">)</span><span class="w"> </span>mc_pos_control<span class="w">                     </span><span class="m">3</span>.8<span class="w"> </span>Hz<span class="w">       </span><span class="m">262200</span><span class="w"> </span>us
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">|</span><span class="w">   </span><span class="p">|</span>__<span class="w"> </span><span class="m">7</span><span class="o">)</span><span class="w"> </span>sensors<span class="w">                           </span><span class="m">38</span>.0<span class="w"> </span>Hz<span class="w">        </span><span class="m">26319</span><span class="w"> </span>us
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">|</span><span class="w">   </span><span class="p">|</span>__<span class="w"> </span><span class="m">8</span><span class="o">)</span><span class="w"> </span>vehicle_acceleration<span class="w">               </span><span class="m">0</span>.0<span class="w"> </span>Hz<span class="w">            </span><span class="m">0</span><span class="w"> </span>us
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="p">|</span><span class="w">   </span><span class="p">|</span>__<span class="w"> </span><span class="m">9</span><span class="o">)</span><span class="w"> </span>vehicle_air_data<span class="w">                   </span><span class="m">7</span>.6<span class="w"> </span>Hz<span class="w">       </span><span class="m">131221</span><span class="w"> </span>us
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="p">|</span><span class="w">   </span><span class="p">|</span>__10<span class="o">)</span><span class="w"> </span>vehicle_gps_position<span class="w">               </span><span class="m">1</span>.3<span class="w"> </span>Hz<span class="w">       </span><span class="m">784611</span><span class="w"> </span>us
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">|</span><span class="w">   </span><span class="se">\_</span>_11<span class="o">)</span><span class="w"> </span>vehicle_magnetometer<span class="w">               </span><span class="m">7</span>.6<span class="w"> </span>Hz<span class="w">       </span><span class="m">131221</span><span class="w"> </span>us
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="p">|</span>__<span class="w"> </span><span class="m">3</span><span class="o">)</span><span class="w"> </span>wq:hp_default
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="p">|</span><span class="w">   </span><span class="p">|</span>__<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="w"> </span>manual_control<span class="w">                     </span><span class="m">1</span>.9<span class="w"> </span>Hz<span class="w">       </span><span class="m">524257</span><span class="w"> </span>us
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="p">|</span><span class="w">   </span><span class="se">\_</span>_<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="w"> </span>rc_update<span class="w">                          </span><span class="m">0</span>.0<span class="w"> </span>Hz<span class="w">            </span><span class="m">0</span><span class="w"> </span>us
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="p">|</span>__<span class="w"> </span><span class="m">4</span><span class="o">)</span><span class="w"> </span>wq:ttyS5
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="p">|</span><span class="w">   </span><span class="se">\_</span>_<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="w"> </span>rc_input<span class="w">                         </span><span class="m">242</span>.9<span class="w"> </span>Hz<span class="w">         </span><span class="m">4117</span><span class="w"> </span>us<span class="w"> </span><span class="o">(</span><span class="m">4000</span><span class="w"> </span>us<span class="o">)</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="se">\_</span>_<span class="w"> </span><span class="m">5</span><span class="o">)</span><span class="w"> </span>wq:lp_default
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">    </span><span class="se">\_</span>_<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="w"> </span>load_mon<span class="w">                           </span><span class="m">2</span>.0<span class="w"> </span>Hz<span class="w">       </span><span class="m">499912</span><span class="w"> </span>us<span class="w"> </span><span class="o">(</span><span class="m">500000</span><span class="w"> </span>us<span class="o">)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="urgb">urgb<a class="headerlink" href="#urgb" title="Permanent link">#</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pxh&gt;<span class="w"> </span>uorb<span class="w"> </span>status
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>TOPIC<span class="w"> </span>NAME<span class="w">              </span>INST<span class="w"> </span><span class="c1">#SUB #Q SIZE PATH</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>actuator_armed<span class="w">             </span><span class="m">0</span><span class="w">    </span><span class="m">5</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">16</span><span class="w"> </span>/obj/actuator_armed0
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>actuator_motors<span class="w">            </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">72</span><span class="w"> </span>/obj/actuator_motors0
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>actuator_servos<span class="w">            </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">48</span><span class="w"> </span>/obj/actuator_servos0
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>actuator_servos_trim<span class="w">       </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">40</span><span class="w"> </span>/obj/actuator_servos_trim0
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>control_allocator_status<span class="w">   </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">56</span><span class="w"> </span>/obj/control_allocator_status0
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>control_allocator_status<span class="w">   </span><span class="m">1</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">56</span><span class="w"> </span>/obj/control_allocator_status1
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>cpuload<span class="w">                    </span><span class="m">0</span><span class="w">    </span><span class="m">3</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">16</span><span class="w"> </span>/obj/cpuload0
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>estimator_selector_status<span class="w">  </span><span class="m">0</span><span class="w">    </span><span class="m">2</span><span class="w">  </span><span class="m">1</span><span class="w">  </span><span class="m">160</span><span class="w"> </span>/obj/estimator_selector_status0
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>event<span class="w">                      </span><span class="m">0</span><span class="w">    </span><span class="m">1</span><span class="w"> </span><span class="m">16</span><span class="w">   </span><span class="m">40</span><span class="w"> </span>/obj/event0
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>failsafe_flags<span class="w">             </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">88</span><span class="w"> </span>/obj/failsafe_flags0
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>failure_detector_status<span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">1</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">24</span><span class="w"> </span>/obj/failure_detector_status0
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>health_report<span class="w">              </span><span class="m">0</span><span class="w">    </span><span class="m">1</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">64</span><span class="w"> </span>/obj/health_report0
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>led_control<span class="w">                </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">8</span><span class="w">   </span><span class="m">16</span><span class="w"> </span>/obj/led_control0
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>log_message<span class="w">                </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">4</span><span class="w">  </span><span class="m">136</span><span class="w"> </span>/obj/log_message0
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>manual_control_setpoint<span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">4</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">64</span><span class="w"> </span>/obj/manual_control_setpoint0
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>mavlink_log<span class="w">                </span><span class="m">0</span><span class="w">    </span><span class="m">1</span><span class="w">  </span><span class="m">8</span><span class="w">  </span><span class="m">136</span><span class="w"> </span>/obj/mavlink_log0
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>parameter_update<span class="w">           </span><span class="m">0</span><span class="w">   </span><span class="m">22</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">40</span><span class="w"> </span>/obj/parameter_update0
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>position_setpoint_triplet<span class="w">  </span><span class="m">0</span><span class="w">    </span><span class="m">3</span><span class="w">  </span><span class="m">1</span><span class="w">  </span><span class="m">224</span><span class="w"> </span>/obj/position_setpoint_triplet0
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>rate_ctrl_status<span class="w">           </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">24</span><span class="w"> </span>/obj/rate_ctrl_status0
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>rtl_time_estimate<span class="w">          </span><span class="m">0</span><span class="w">    </span><span class="m">2</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">24</span><span class="w"> </span>/obj/rtl_time_estimate0
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>sensor_combined<span class="w">            </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">48</span><span class="w"> </span>/obj/sensor_combined0
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>sensor_preflight_mag<span class="w">       </span><span class="m">0</span><span class="w">    </span><span class="m">1</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">16</span><span class="w"> </span>/obj/sensor_preflight_mag0
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>sensor_selection<span class="w">           </span><span class="m">0</span><span class="w">    </span><span class="m">6</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">16</span><span class="w"> </span>/obj/sensor_selection0
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>sensors_status_imu<span class="w">         </span><span class="m">0</span><span class="w">    </span><span class="m">2</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">96</span><span class="w"> </span>/obj/sensors_status_imu0
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>takeoff_status<span class="w">             </span><span class="m">0</span><span class="w">    </span><span class="m">1</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">16</span><span class="w"> </span>/obj/takeoff_status0
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>telemetry_status<span class="w">           </span><span class="m">0</span><span class="w">    </span><span class="m">1</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">88</span><span class="w"> </span>/obj/telemetry_status0
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>transponder_report<span class="w">         </span><span class="m">0</span><span class="w">    </span><span class="m">2</span><span class="w"> </span><span class="m">32</span><span class="w">   </span><span class="m">80</span><span class="w"> </span>/obj/transponder_report0
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>tune_control<span class="w">               </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">4</span><span class="w">   </span><span class="m">24</span><span class="w"> </span>/obj/tune_control0
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>vehicle_acceleration<span class="w">       </span><span class="m">0</span><span class="w">    </span><span class="m">1</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">32</span><span class="w"> </span>/obj/vehicle_acceleration0
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>vehicle_air_data<span class="w">           </span><span class="m">0</span><span class="w">    </span><span class="m">5</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">40</span><span class="w"> </span>/obj/vehicle_air_data0
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>vehicle_angular_velocity<span class="w">   </span><span class="m">0</span><span class="w">    </span><span class="m">5</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">40</span><span class="w"> </span>/obj/vehicle_angular_velocity0
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>vehicle_attitude<span class="w">           </span><span class="m">0</span><span class="w">    </span><span class="m">6</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">56</span><span class="w"> </span>/obj/vehicle_attitude0
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>vehicle_command<span class="w">            </span><span class="m">0</span><span class="w">    </span><span class="m">6</span><span class="w">  </span><span class="m">8</span><span class="w">   </span><span class="m">56</span><span class="w"> </span>/obj/vehicle_command0
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>vehicle_control_mode<span class="w">       </span><span class="m">0</span><span class="w">    </span><span class="m">6</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">24</span><span class="w"> </span>/obj/vehicle_control_mode0
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>vehicle_global_position<span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">7</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">64</span><span class="w"> </span>/obj/vehicle_global_position0
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>vehicle_gps_position<span class="w">       </span><span class="m">0</span><span class="w">    </span><span class="m">5</span><span class="w">  </span><span class="m">1</span><span class="w">  </span><span class="m">128</span><span class="w"> </span>/obj/vehicle_gps_position0
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>vehicle_land_detected<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">5</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">24</span><span class="w"> </span>/obj/vehicle_land_detected0
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>vehicle_local_position<span class="w">     </span><span class="m">0</span><span class="w">   </span><span class="m">17</span><span class="w">  </span><span class="m">1</span><span class="w">  </span><span class="m">168</span><span class="w"> </span>/obj/vehicle_local_position0
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>vehicle_magnetometer<span class="w">       </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">40</span><span class="w"> </span>/obj/vehicle_magnetometer0
+</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>vehicle_odometry<span class="w">           </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">1</span><span class="w">  </span><span class="m">112</span><span class="w"> </span>/obj/vehicle_odometry0
+</span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>vehicle_status<span class="w">             </span><span class="m">0</span><span class="w">   </span><span class="m">18</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">72</span><span class="w"> </span>/obj/vehicle_status0
+</span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>wind<span class="w">                       </span><span class="m">0</span><span class="w">    </span><span class="m">2</span><span class="w">  </span><span class="m">1</span><span class="w">   </span><span class="m">48</span><span class="w"> </span>/obj/wind0
+</span></code></pre></div>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright 2024, tong
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["content.code.copy", "search.suggest", "search.highlight"], "search": "../../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../../../assets/mkdocs_puml/puml.js"></script>
+      
+        <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+      
+        <script src="../../../../assets/mkdocs_puml/interaction.js"></script>
+      
+    
+  </body>
+</html>
